@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<body>
+	<header th:replace="layout/layout :: header"> </header>
+<body>
+	<div class="container py-4">
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<ul class="list-group">
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">ID</label> <label
+							class="col-sm-6 col-form-label " th:text="${empresa.id}"></label>
+					</div>
+
+					<div class="form-group row ">
+						<label class="col-sm-2 col-form-label">NOMBRE</label> <label
+							class="col-sm-6 col-form-label " th:text="${empresa.nombre}"></label>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">DIRECCION</label> <label
+							class="col-sm-6 col-form-label " th:text="${empresa.direccion}"></label>
+					</div>
+
+				</ul>
+			</div>
+		</div>
+		
+		<h4 class="card-title py-2">
+			<a th:href="@{'/declaracion/listar'}" class="btn btn-primary btn-xs">Ir Mantto Declaracion</a>
+				
+				<a class="btn btn-success btn-xs float-right" th:href="@{'/users/export/excel'}">XLS</a>
+				<!-- 
+				<a class="btn btn-danger btn-xs float-right mx-2" th:href="@{'/empresa/ver/' + ${datos.id}(format=pdf)}">PDF</a>
+				 -->
+				<!--  <a th:href="@{'/empresa/ver/'+${datos.id} (format=xlsx) }" class="btn btn-secondary btn-xs float-right" >XLS</a>  -->
+		</h4>
+
+		<table class="table table-striped  border-top-0">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>DESCRIPCION</td>
+					<td>FECHA INICIAL</td>
+					<td>FECHA FINAL</td>
+					<td>TOTAL COMPRAS</td>
+					<td>TOTAL VENTAS</td>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="declara: ${declaracion}">
+				 <td th:text="${declara.id}"></td>
+					<td th:text="${declara.periodo.descripcion}"></td>
+					<td th:text="${declara.periodo.fechaInicio}"></td>
+					<td th:text="${declara.periodo.fechaFinal}"></td>
+					<td th:text="${declara.getTotalCompras()}"></td>
+					<td th:text="${declara.getTotalVentas()}"></td>					
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+</html>

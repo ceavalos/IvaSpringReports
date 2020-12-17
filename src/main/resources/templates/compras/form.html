@@ -1,0 +1,128 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"> </header>
+
+	<div class="container">
+		<h1 th:text="${titulo}"
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
+
+		<div th:object="${datosNew}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+				<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+		</div>
+
+		<form th:action="@{/compra/form}" th:object="${datosNew}"
+			method="post">
+
+
+			<div class="form-group form-inline">
+				<label for="recipient-name" class="col-form-label col-sm-3">Fecha
+					Emision:</label> <input type="date" th:field="*{fechaEmision}"
+					class="form-control col-sm-3" placeholder="Fecha de Emision"
+					th:errorclass="'form-control alert-danger'" />
+					<small class="form-text text-danger"
+					th:if="${#fields.hasErrors('fechaEmision')}"
+					th:errors="*{fechaEmision}"></small>
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="col-form-label  col-sm-3">Numero Documento:</label> <input
+					type="text" th:field="*{numero_documento}"
+					class="form-control  col-sm-3" placeholder="Numero Documento"
+					th:errorclass="'form-control alert-danger'" /><small
+					class="form-text text-danger"
+					th:if="${#fields.hasErrors('numero_documento')}"
+					th:errors="*{numero_documento}"></small> 
+					
+					<label class="col-form-label  col-sm-3">Numero Registro:</label> <input
+					type="text" th:field="*{nrc}" class="form-control col-sm-3"
+					placeholder="Numero de registro contribuyente"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3">Nit o Dui Sujeto
+					Excluido:</label> <input type="text" th:field="*{nit_dui}"
+					class="form-control col-sm-3"
+					placeholder="Nit o Dui Sujeto Excluido"
+					th:errorclass="'form-control alert-danger'" /> 
+					
+					<label class="col-form-label col-sm-3">Nombre del proveedor:</label> <input
+					type="text" th:field="*{nombre_proveedor}"
+					class="form-control col-sm-3" placeholder="Nombre del Proveedor"
+					th:errorclass="'form-control alert-danger'" />
+					
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Compra exc Interna:</label>
+				<input type="text" th:field="*{comp_exc_interna}"
+					class="form-inline col-sm-2" placeholder="Compra Excenta Interna"
+					th:errorclass="'form-control alert-danger'" /> <label
+					class="col-form-label col-sm-3">Compra exc Importacion:</label> <input
+					type="text" th:field="*{comp_exc_importa}"
+					class="form-inline col-sm-2"
+					placeholder="Compra Excenta Importacion e Interna"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Compra grv Interna:</label>
+				<input type="text" th:field="*{comp_grv_interna}"
+					class="form-inline col-sm-2" placeholder="Compra gravada Interna"
+					th:errorclass="'form-control alert-danger'" /> <label
+					class="col-form-label col-sm-3">Compra grv Importacion:</label> <input
+					type="text" th:field="*{comp_grv_importa}"
+					class="form-inline col-sm-2"
+					placeholder="Compra gravada Importacion e Interna"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Fovial + Constr:</label> <input
+					type="text" th:field="*{fovial}" class="form-inline col-sm-2"
+					placeholder="Fovial" th:errorclass="'form-control alert-danger'" />
+				<label class="col-form-label col-sm-3">Credito Fiscal:</label> <input
+					type="text" th:field="*{iva_crefiscal}"
+					class="form-inline col-sm-2" placeholder="Credito Fiscal"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Compras Sujetos
+					Excluido</label> <input type="text" th:field="*{compras_excluidas}"
+					class="form-inline col-sm-2" placeholder="Compras Sujetos Excluido"
+					th:errorclass="'form-control alert-danger'" /> <label
+					class="col-form-label col-sm-3">Percepcion Iva:</label> <input
+					type="text" th:field="*{percepcion}" class="form-inline col-sm-2"
+					placeholder="Percepcion Iva"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+          <!-- 
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Total Compras</label> <input
+					type="text" th:field="*{total_compras}"
+					class="form-inline col-sm-2" placeholder="Total de compras"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+           -->
+           
+			<div class="form-group row ">
+				<div class="col-sm-6">
+					<input type="submit" value="Registrar Compra" class="btn btn-primary" />
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

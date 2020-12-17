@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head th:replace="layout/layout :: head">
+<body>
+
+	<header th:replace="layout/layout :: header"> </header>
+
+	<div class="container-fluid  py-4">
+		<div class="card bg-light">
+
+			<h1
+				class="text-secondary border border-success border-top-0 border-left-0 border-right-0"
+				th:text="${titulo}"></h1>
+
+			<div class="card-body">
+				<h4 class="card-title">
+					<a  sec:authorize="hasRole('ROLE_ADMIN')"  th:href="@{/cliente/form}" class="btn btn-primary btn-xs">Crear Terceros</a>
+				</h4>
+
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>nombre</th>
+							<th>apellido</th>
+							<th>nrc</th>
+							<th>dui</th>
+							<th>nit</th>
+							<th>email</th>
+							<th>creado</th>
+							<th>editar</th>
+							<th>eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente: ${cliente}">
+							<td> <a class= "btn btn-primary btn-xs" th:href="@{/cliente/ver/} + ${cliente.id}" th:text="${cliente.id}"> </a></td>
+							
+							
+							<td th:text="${cliente.nombre}"></td>
+							<td th:text="${cliente.apellido}"></td>
+							<td th:text="${cliente.nrc}"></td>
+							<td th:text="${cliente.dui}"></td>
+							<td th:text="${cliente.nit}"></td>
+							<td th:text="${cliente.email}"></td>
+							<td th:text="${cliente.createAt}"></td>
+							<td><a class="btn btn-primary btn-xs" sec:authorize="hasRole('ROLE_ADMIN')" 
+								th:href="@{/cliente/form/} + ${cliente.id}" th:text="'editar'"></a></td>
+							<td><a class="btn btn-danger btn-xs" sec:authorize="hasRole('ROLE_ADMIN')" 
+								th:href="@{/cliente/eliminar/} + ${cliente.id}"
+								th:text="'eliminar'"
+								onclick="return confirm('Estas seguro que quieres eliminar!?');"></a></td>
+						</tr>
+					</tbody>
+
+				</table>
+				<nav th:replace="layout/paginator-nav :: paginator"></nav>
+				
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+
+</html>

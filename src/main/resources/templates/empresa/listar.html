@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head th:replace="layout/layout :: head">
+
+
+</head>
+<body>
+	
+	<header th:replace="layout/layout :: header"> </header>
+
+	<div class="container-fluid  py-4" >
+		<div class="card bg-light">
+			
+			<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"
+			th:text="${titulo}"></h1>
+			
+			<div class="card-body" >
+
+				<h4 class= "card-title">
+				 <a th:href="@{/empresa/form}" class= "btn btn-primary btn-xs" sec:authorize="hasRole('ROLE_ADMIN')">Crear Empresa</a>
+				 <a class="btn btn-success btn-xs float-right" th:href="@{'/emp/export/excel'}">XLS</a>
+				</h4>
+				
+				<table class="table table-striped ">
+					<thead>
+						<tr>
+							<th>Declaraciones</th>
+							<th>Nombre</th>
+							<th>Nit</th>
+							<th>Nrc</th>
+							<th>Representante</th>
+							<th>Dirección</th>
+							<th>Telefono</th>
+							<th>Correo</th>
+							<th>Fecha</th>
+							<th>editar</th>
+					        <th>eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="empresa: ${datos}">							
+							<td> <a class= "btn btn-primary btn-xs" th:href="@{/empresa/ver/} + ${empresa.id}" th:text="${empresa.id}"> </a></td>							
+							<td th:text="${empresa.nombre}"></td>
+							<td th:text="${empresa.nit}"></td>
+							<td th:text="${empresa.nrc}"></td>
+							<td th:text="${empresa.representante}"></td>
+							<td th:text="${empresa.direccion}"></td>
+							<td th:text="${empresa.telefono}"></td>
+							<td th:text="${empresa.correo}"></td>
+							<td th:text="${empresa.createAt}"></td>
+							<td><a class="btn btn-primary btn-xs" th:href="@{/empresa/form/} + ${empresa.id}" th:text="'editar'" sec:authorize="hasRole('ROLE_ADMIN')"></a></td>
+					        <td><a class="btn btn-danger btn-xs" th:href="@{/empresa/eliminar/} + ${empresa.id}" th:text="'eliminar'"
+					         onclick="return confirm('Estas seguro que quieres eliminar?');" sec:authorize="hasRole('ROLE_ADMIN')"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			     <nav th:replace="layout/paginator-nav :: paginator"></nav>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+
+</html>

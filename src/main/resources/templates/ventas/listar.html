@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  >
+<head th:replace="layout/layout :: head">
+<body>
+
+	<header th:replace="layout/layout :: header"> </header>
+
+	<script th:src="@{/js/comprasPopus.js}" src="../src/js/comprasPopus.js"></script>
+<body>
+	<div class="container-fluid py-4">
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<ul class="list-group">
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">ID</label> <label
+							class="col-sm-6 col-form-label " th:text="${datos.id}"></label>
+					</div>
+
+					<div class="form-group row ">
+						<label class="col-sm-2 col-form-label">DESCRIPCION</label> <label
+							class="col-sm-6 col-form-label " th:text="${datos.descripcion}"></label>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">PERIODO</label> <label
+							class="col-sm-6 col-form-label "
+							th:text="${datos.periodo.descripcion} + ' Del:' +${datos.periodo.fechaInicio}   + ' Al: ' +${datos.periodo.fechaFinal} "></label>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">EMPRESA</label> <label
+							class="col-sm-6 col-form-label "
+							th:text="${datos.empresa.nombre}"></label>
+					</div>
+
+
+				</ul>
+
+			</div>
+		</div>
+
+		<h4 class="card-title py-2">
+
+			<h4 class="card-title">
+				<a th:href="@{/ventas/forms/} + ${datos.id}"
+					class="btn btn-primary btn-xs" th:text="'Registrar Venta'" sec:authorize="hasRole('ROLE_ADMIN')"></a>
+			</h4>
+
+			
+		</h4>
+
+		<table class="table table-striped ">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Emision</th>
+					<th>#Documento</th>
+					<th>Nrc</th>					
+					<th>nombre</th>
+					<th>Venta. IntNo Sujeta</th>
+					<th>Venta. Int Excenta</th>
+					<th>Venta. Int Gravada</th>
+					<th>Debito Fiscal</th>
+					<th>Iva Retencion</th>
+					<th>Total</th>					
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="venta: ${ventas}">	
+					<td th:text="${venta.id}"></td>
+					<td th:text="${venta.fechaEmision}"></td>
+					<td th:text="${venta.numeroPreImpreso}"></td>
+					<td th:text="${venta.nrc}"></td>
+					<td th:text="${venta.nombre}"></td>
+					<td th:text="${venta.v_int_no_sujetas}"></td>
+					<td th:text="${venta.v_int_excentas}"></td>
+					<td th:text="${venta.v_int_gravadas}"></td>
+					<td th:text="${venta.v_int_debito_fiscal}"></td>
+					<td th:text="${venta.iva_retencion}"></td>
+					<td th:text="${venta.total}"></td>					
+					<td><a class="btn btn-danger btn-xs" th:href="@{/ventas/eliminar/} + ${venta.id}" th:text="'eliminar'"
+					         onclick="return confirm('Estas seguro que quieres eliminar?');" sec:authorize="hasRole('ROLE_ADMIN')"></a></td>				
+				</tr>
+
+			</tbody>
+		</table>
+	
+	<!-- 
+		<nav th:replace="layout/paginator-nav :: paginator"></nav>
+		 -->
+	</div>
+
+	<!-- 
+     <div th:replace="layout/layout :: compras-popup"></div>
+	 -->
+
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+</html>

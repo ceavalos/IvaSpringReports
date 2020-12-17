@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+
+
+</head>
+<body>
+	
+	<header th:replace="layout/layout :: header"> </header>
+
+	<div class="container-fluid  py-4" >
+		<div class="card bg-light">
+			
+			<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"
+			th:text="${titulo}"></h1>
+			
+			<div class="card-body" >
+
+				<h4 class= "card-title">
+				 <a th:href="@{/declaracion/form}" class= "btn btn-primary btn-xs" sec:authorize="hasRole('ROLE_ADMIN')" >Crear Declaracion</a>
+				</h4>
+				
+ 		<table class="table table-striped ">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Descripcion</th>
+							<th>Periodo</th>
+							<th>Empresa</th>
+							<th>editar</th>
+					        <th>eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="data: ${datos}">													
+							<td> <a class= "btn btn-primary btn-xs" th:href="@{/declaracion/ver/}  + ${data.id}" th:text="${data.id}"> </a></td>							
+							<td th:text="${data.descripcion}"></td>
+					 		<td th:text="${data.periodo.descripcion} + ' Del: ' +${data.periodo.fechaInicio} + ' Al:' + ${data.periodo.fechaFinal} "></td>
+						  	<td th:text="${data.empresa.nombre}"></td>							
+					        <td><a class="btn btn-primary btn-xs" th:href="@{/declaracion/form/} + ${data.id}" th:text="'editar'" sec:authorize="hasRole('ROLE_ADMIN')" ></a></td>
+					        <td><a class="btn btn-danger btn-xs" th:href="@{/declaracion/eliminar/} + ${data.id}" th:text="'eliminar'"
+					         onclick="return confirm('Esta seguro que quieres eliminar?');" sec:authorize="hasRole('ROLE_ADMIN')" ></a></td>
+					          
+						</tr>
+						
+					</tbody>
+				</table>
+				 	
+			     <nav th:replace="layout/paginator-nav :: paginator"></nav>
+			     	
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+
+</html>

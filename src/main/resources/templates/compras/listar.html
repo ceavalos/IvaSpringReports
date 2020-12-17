@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head th:replace="layout/layout :: head">
+<body>
+
+	<header th:replace="layout/layout :: header"> </header>
+
+	<script th:src="@{/js/comprasPopus.js}" src="../src/js/comprasPopus.js"></script>
+<body>
+	<div class="container-fluid py-4">
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<ul class="list-group">
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">ID</label> <label
+							class="col-sm-6 col-form-label " th:text="${datos.id}"></label>
+					</div>
+
+					<div class="form-group row ">
+						<label class="col-sm-2 col-form-label">DESCRIPCION</label> <label
+							class="col-sm-6 col-form-label " th:text="${datos.descripcion}"></label>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">PERIODO</label> <label
+							class="col-sm-6 col-form-label "
+							th:text="${datos.periodo.descripcion} + ' Del:' +${datos.periodo.fechaInicio}   + ' Al: ' +${datos.periodo.fechaFinal} "></label>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">EMPRESA</label> <label
+							class="col-sm-6 col-form-label "
+							th:text="${datos.empresa.nombre}"></label>
+					</div>
+
+
+				</ul>
+
+			</div>
+		</div>
+
+		<h4 class="card-title py-2">
+
+			<h4 class="card-title">
+				<a th:href="@{/compra/forms/} + ${datos.id}" sec:authorize="hasRole('ROLE_ADMIN')" 
+					class="btn btn-primary btn-xs" th:text="'Registrar Compra'"></a>
+			</h4>
+
+			<!-- 
+				 <a class="btn btn-primary " data-toggle="modal" id= "btnAdd"
+				 th:href ="@{compra/form}"
+				 data-target="#exampleModal" data-whatever="@getbootstrap"	>Crear Compra</a> 
+				 -->
+		</h4>
+
+		<table class="table table-striped ">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Emision</th>
+					<th>#Documento</th>
+					<th>Nrc</th>
+					<th>Nit/Dui</th>
+					<th>nombre_proveedor</th>
+					<th>Comp. excenta Gravada</th>
+					<th>Comp. excenta Import</th>
+					<th>Comp. Gravada Int</th>
+					<th>Comp. Gravada Import</th>
+					<th>Fovial</th>
+					<th>Credito Fiscal</th>
+					<th>Sujetos Excluidos</th>
+					<th>Percepcion</th>
+					<th>Total Compras</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="compra: ${compras}">	
+					<td th:text="${compra.id}"></td>
+					<td th:text="${compra.fechaEmision}"></td>
+					<td th:text="${compra.numero_documento}"></td>
+					<td th:text="${compra.nrc}"></td>
+					<td th:text="${compra.nit_dui}"></td>
+					<td th:text="${compra.nombre_proveedor}"></td>
+					<td th:text="${compra.comp_exc_interna}"></td>
+					<td th:text="${compra.comp_exc_importa}"></td>
+					<td th:text="${compra.comp_grv_interna}"></td>
+					<td th:text="${compra.comp_grv_importa}"></td>
+					<td th:text="${compra.fovial}"></td>
+					<td th:text="${compra.iva_crefiscal}"></td>
+					<td th:text="${compra.compras_excluidas}"></td>
+					<td th:text="${compra.percepcion}"></td>
+					<td th:text="${compra.total_compras}"></td>		
+					<td><a class="btn btn-danger btn-xs" th:href="@{/compra/eliminar/} + ${compra.id}" th:text="'eliminar'"
+					         onclick="return confirm('Estas seguro que quieres eliminar?');" sec:authorize="hasRole('ROLE_ADMIN')" ></a></td>				
+				</tr>
+
+			</tbody>
+		</table>
+	
+	<!-- 
+		<nav th:replace="layout/paginator-nav :: paginator"></nav>
+		 -->
+	</div>
+
+	<!-- 
+     <div th:replace="layout/layout :: compras-popup"></div>
+	 -->
+
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+</html>

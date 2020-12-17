@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"> </header>
+
+	<div class="container">
+		<h1 th:text="${titulo}"
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
+
+		<div th:object="${datosNew}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+				<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+		</div>
+
+		<form th:action="@{/ventas/form}" th:object="${datosNew}"
+			method="post">
+
+
+			<div class="form-group form-inline">
+				<label for="recipient-name" class="col-form-label col-sm-3">Fecha
+					Emision:</label> <input type="date" th:field="*{fechaEmision}"
+					class="form-control col-sm-3" placeholder="Fecha de Emision"
+					th:errorclass="'form-control alert-danger'" />
+					<small class="form-text text-danger"
+					th:if="${#fields.hasErrors('fechaEmision')}"
+					th:errors="*{fechaEmision}"></small>
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="col-form-label  col-sm-3">Numero Preimpreso:</label> <input
+					type="text" th:field="*{numeroPreImpreso}"
+					class="form-control  col-sm-3" placeholder="Numero Preimpreso"
+					th:errorclass="'form-control alert-danger'" /><small
+					class="form-text text-danger"
+					th:if="${#fields.hasErrors('numeroPreImpreso')}"
+					th:errors="*{numeroPreImpreso}"></small> 
+					
+					<label class="col-form-label  col-sm-3">Numero Registro:</label> <input
+					type="text" th:field="*{nrc}" class="form-control col-sm-3"
+					placeholder="Numero de registro contribuyente"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+
+			<div class="form-group form-inline">
+				
+					
+					<label class="col-form-label col-sm-3">Nombre:</label> <input
+					type="text" th:field="*{nombre}"
+					class="form-control col-sm-9" placeholder="Nombre del Cliente"
+					th:errorclass="'form-control alert-danger'" />
+					
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Venta Interna No Sujeta:</label>
+				<input type="text" th:field="*{v_int_no_sujetas}"
+					class="form-inline col-sm-2" placeholder="Compra Excenta Interna"
+					th:errorclass="'form-control alert-danger'" /> 
+				
+				<label
+					class="col-form-label col-sm-3">Venta Interna Excenta:</label> <input
+					type="text" th:field="*{v_int_excentas}"
+					class="form-inline col-sm-2"
+					placeholder="Venta Interna Excenta"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Venta Interna Gravadas:</label>
+				<input type="text" th:field="*{v_int_gravadas}"
+					class="form-inline col-sm-2" placeholder="Venta interna Gravada"
+					th:errorclass="'form-control alert-danger'" /> 
+					
+					<label
+					class="col-form-label col-sm-3">Debito Fiscal:</label> <input
+					type="text" th:field="*{v_int_debito_fiscal}"
+					class="form-inline col-sm-2"
+					placeholder="Debito Fiscal"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Retencion:</label> <input
+					type="text" th:field="*{iva_retencion}" class="form-inline col-sm-2"
+					placeholder="Fovial" th:errorclass="'form-control alert-danger'" />
+								
+			</div>
+
+<!--
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Compras Sujetos
+					Excluido</label> <input type="text" th:field="*{compras_excluidas}"
+					class="form-inline col-sm-2" placeholder="Compras Sujetos Excluido"
+					th:errorclass="'form-control alert-danger'" /> <label
+					class="col-form-label col-sm-3">Percepcion Iva:</label> <input
+					type="text" th:field="*{percepcion}" class="form-inline col-sm-2"
+					placeholder="Percepcion Iva"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+           
+			<div class="form-group form-inline">
+				<label class="col-form-label col-sm-3 ">Total Compras</label> <input
+					type="text" th:field="*{total_compras}"
+					class="form-inline col-sm-2" placeholder="Total de compras"
+					th:errorclass="'form-control alert-danger'" />
+			</div>
+           -->
+           
+			<div class="form-group row ">
+				<div class="col-sm-6">
+					<input type="submit" value="Registrar Venta" class="btn btn-primary" />
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>
