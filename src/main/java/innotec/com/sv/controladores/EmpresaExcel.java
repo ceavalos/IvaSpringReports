@@ -13,18 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import innotec.com.sv.entities.Empresa;
-import innotec.com.sv.entities.User;
 import innotec.com.sv.miscelaneos.EmpresaExcelExporter;
-import innotec.com.sv.miscelaneos.UserExcelExporter;
 import innotec.com.sv.services.EmpresaServiceImp;
-import innotec.com.sv.services.UserServices;
  
 @Controller
 public class EmpresaExcel {
  
-    @Autowired
-    private UserServices service;
-    
+   
     @Autowired
     private EmpresaServiceImp empresaServ;
      
@@ -39,7 +34,7 @@ public class EmpresaExcel {
         String headerValue = "attachment; filename=empresas_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
          
-        List<User> listUsers = service.listAll();
+       
         List<Empresa> listEmpresa = empresaServ.findAll();
          
         EmpresaExcelExporter excelExporter = new EmpresaExcelExporter(listEmpresa);
