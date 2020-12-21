@@ -1,42 +1,43 @@
 package innotec.com.sv.entities;
 
-import javax.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "roles")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-     
-    private String name;
-     
-    private String description;
+@Table(name = "authorities", uniqueConstraints= {@UniqueConstraint(columnNames= {"user_id", "authority"})})
+public class Role implements Serializable {
 
-	public Integer getId() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String authority;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
-	public String getDescription() {
-		return description;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
- 
-    // constructors, getter and setters are not shown for brevity  
-    
 }

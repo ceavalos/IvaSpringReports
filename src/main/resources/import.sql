@@ -30,5 +30,10 @@ INSERT INTO ventas (FECHA_EMISION, IVA_RETENCION, NOMBRE, NRC, NUMERO_PRE_IMPRES
 INSERT INTO ventas (FECHA_EMISION, IVA_RETENCION, NOMBRE, NRC, NUMERO_PRE_IMPRESO, V_INT_DEBITO_FISCAL, V_INT_EXCENTAS, V_INT_GRAVADAS, V_INT_NO_SUJETAS, TOTAL, DECLARACION_ID)  VALUES('2020-01-01', 10, 'CARLOS3', '32423', '5662', 0, 0, 100, 0, 110, 1);
 INSERT INTO ventas (FECHA_EMISION, IVA_RETENCION, NOMBRE, NRC, NUMERO_PRE_IMPRESO, V_INT_DEBITO_FISCAL, V_INT_EXCENTAS, V_INT_GRAVADAS, V_INT_NO_SUJETAS, TOTAL, DECLARACION_ID)  VALUES('2020-01-01', 10, 'CARLOS4', '32423', '124446', 0, 0, 100, 0, 110, 1);
 
-INSERT INTO users (email, password, full_name, enabled) values ('cavalos@hotmail.com','123456' , 'Carlos Ernesto Avalos' ,1);
+INSERT INTO users(username, password, enabled)  VALUES ('admin', '$2a$10$s8wmTOcaMR.oBbBHdaLO4Ot8gbfaxobqVEwB8yzfkeTel5FNuj21C', 1);
+INSERT INTO users(username, password, enabled)  VALUES ('cavalos', '$2a$10$SNTkRWGE/WNsk7OkIU/tv.6WcqKOYEft9zeiqA.ubwm/33EvniHiO', 1);
+
+INSERT INTO authorities(user_id, authority)  VALUES (1, 'ROLE_ADMIN');
+INSERT INTO authorities(user_id, authority)  VALUES (1, 'ROLE_USER');
+INSERT INTO authorities(user_id, authority)  VALUES (2, 'ROLE_USER');
 
